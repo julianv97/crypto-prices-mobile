@@ -6,12 +6,11 @@ interface Props {
   coin: CoinInterface;
 }
 
-const CoinItem = ({ coin }: Props) => {
+const CoinItem: React.FC<Props> = ({ coin }) => {
   return (
     <View style={styles.container}>
       <View style={styles.coinName}>
-        {/* comprobación .image primer render */}
-        <Image style={styles.image} source={{ uri: coin.image }} />
+        {coin.image ? <Image style={styles.image} source={{ uri: coin.image }} /> : <Text></Text>}
         <View style={styles.nameContainer}>
           <Text style={styles.text}>{coin.name}</Text>
           <Text style={styles.textSymbol}>{coin.symbol}</Text>

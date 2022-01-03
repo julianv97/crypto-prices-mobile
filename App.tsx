@@ -5,12 +5,12 @@ import CoinItem from './components/CoinItem';
 import CoinInterface from './interfaces/ICoin';
 /* import { getCoins } from './api/CoinApi'; */
 
-export default function App() {
+ const App: React.FC = () => {
   const [coins, setCoins] = useState<CoinInterface[]>([
     { id: '', name: '', image: '', current_price: 0, symbol: '', price_change_percentage_24h: 0 },
   ]);
-  const [search, setSearch] = useState('');
-  const [refresh, setRefresh] = useState(false);
+  const [search, setSearch] = useState<string>('');
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const loadData = (): void => {
     fetch(
@@ -84,3 +84,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default App;
