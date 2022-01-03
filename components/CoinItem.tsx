@@ -10,7 +10,7 @@ const CoinItem: React.FC<Props> = ({ coin }) => {
   return (
     <View style={styles.container}>
       <View style={styles.coinName}>
-        {coin.image ? <Image style={styles.image} source={{ uri: coin.image }} /> : <Text></Text>}
+        {coin.image && <Image style={styles.image} source={{ uri: coin.image }} />}
         <View style={styles.nameContainer}>
           <Text style={styles.text}>{coin.name}</Text>
           <Text style={styles.textSymbol}>{coin.symbol}</Text>
