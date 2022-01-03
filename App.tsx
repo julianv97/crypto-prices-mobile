@@ -5,10 +5,8 @@ import CoinItem from './components/CoinItem';
 import CoinInterface from './interfaces/ICoin';
 /* import { getCoins } from './api/CoinApi'; */
 
- const App: React.FC = () => {
-  const [coins, setCoins] = useState<CoinInterface[]>([
-    { id: '', name: '', image: '', current_price: 0, symbol: '', price_change_percentage_24h: 0 },
-  ]);
+const App: React.FC = () => {
+  const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [search, setSearch] = useState<string>('');
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -56,7 +54,7 @@ import CoinInterface from './interfaces/ICoin';
       <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
