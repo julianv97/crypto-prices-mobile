@@ -6,7 +6,11 @@ import CoinInterface from './interfaces/ICoin';
 /* import { getCoins } from './api/CoinApi'; */
 
 export default function App() {
-  const [coins, setCoins] = useState<CoinInterface[]>([{ id: '', name: '', image: '', current_price: 0 }]);
+  const [coins, setCoins] = useState<CoinInterface[]>([
+    { id: '', name: '', image: '', current_price: 0, symbol: '', price_change_percentage_24h: 0 },
+  ]);
+  const [search, setSearch] = useState('');
+  const [refresh, setRefresh] = useState(false);
 
   const loadData = (): void => {
     fetch(
@@ -27,9 +31,28 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Crypto Prices</Text>
-        <TextInput style={styles.searchInput} placeholder="Search a Coin" placeholderTextColor="#858585" />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search a Coin"
+          placeholderTextColor="#858585"
+          onChangeText={(text) => setSearch(text)}
+        />
       </View>
-      <FlatList data={coins} renderItem={({ item }) => <CoinItem coin={item} />} />
+      <FlatList
+        data={coins.filter(
+          (coin) =>
+            coin.name.toLowerCase().includes(search.toLowerCase()) ||
+            coin.symbol.toLowerCase().includes(search.toLowerCase())
+        )}
+        renderItem={({ item }) => <CoinItem coin={item} />}
+        showsVerticalScrollIndicator={false}
+        refreshing={refresh}
+        onRefresh={() => {
+          setRefresh(true);
+          loadData();
+          setRefresh(false);
+        }}
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -46,17 +69,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 15,
+    marginBottom: 15,
   },
   title: {
     fontSize: 30,
-    color: "#fff",
+    color: '#fff',
     fontWeight: 'bold',
   },
   searchInput: {
-    color: "#fff",
-    borderBottomColor: "#4657CE",
+    color: '#fff',
+    borderBottomColor: '#4657CE',
     borderBottomWidth: 1,
-    width: "40%",
-    textAlign: "center",
+    width: '40%',
+    textAlign: 'center',
   },
 });
